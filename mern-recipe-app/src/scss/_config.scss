@@ -1,0 +1,58 @@
+// STUB: function returns weight
+@function weight($weight-name) {
+	@return map-get($font-weights, $weight-name);
+}
+
+// STUB: function returns border radius
+@function radius($radius-name) {
+	@return map-get($border-radii, $radius-name);
+}
+
+// STUB: function toggles color based on lightness
+@function set-text-color($color) {
+	@if (lightness($color) > 40%) {
+		@return #000;
+	} @else {
+		@return #fff;
+	}
+}
+
+// STUB: create mixin returns responsive font size
+@mixin resize($size-name) {
+	$result: map-get($font-sizes, $size-name);
+	font-size: $result;
+
+	@media only screen and (min-width: 2560px) {
+		$result: map-get($font-sizes, $size-name) + 0.5; // increase font size by 0.5
+		font-size: $result;
+	}
+}
+
+// STUB: create flex mixin
+@mixin flex-col {
+	display: flex;
+	flex-direction: column;
+}
+@mixin flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+// STUB: create media-query mixin
+@mixin media-md {
+	@media screen and (min-width: 768px) {
+		@content;
+	}
+}
+
+@mixin media-lg {
+	@media screen and (min-width: 1024px) {
+		@content;
+	}
+}
+
+@mixin media-xxl {
+	@media screen and (min-width: 2560px) {
+		@content;
+	}
+}

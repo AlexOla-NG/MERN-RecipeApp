@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  color: hsl(0, 0%, 20%);
+  overflow-x: hidden;
+}
+
+section {
+  padding: 3rem 2rem;
+}
+
+a {
+  color: hsl(0, 0%, 20%);
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: hsl(0, 0%, 7%);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  text-transform: capitalize;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.btn {
+  background-color: #c7ad05;
+  box-shadow: 0 10px 0 #635703;
+  border: none;
+  border-radius: 0.7rem;
+  color: hsl(0, 0%, 20%);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 1.05rem 2.8rem;
+  text-transform: uppercase;
+  position: relative;
+}
+@media only screen and (min-width: 2560px) {
+  .btn {
+    font-size: 1.4rem;
+  }
+}
+
+.btn:hover {
+  background-color: hsl(52, 95%, 50%);
+  box-shadow: 0 10px 0 #958204;
+}
+
+.btn:active {
+  box-shadow: 0 5px 0 #958204;
+  transform: translateY(5px);
+}/*# sourceMappingURL=main.css.map */
