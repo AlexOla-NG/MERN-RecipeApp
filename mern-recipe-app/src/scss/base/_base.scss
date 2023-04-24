@@ -53,10 +53,26 @@ h6 {
 h3,
 h4,
 h5,
-h6 {
+h6,
+button {
 	text-transform: capitalize;
 }
 
 p {
 	line-height: 1.6;
+}
+
+input,
+button {
+	border: 1px solid $dark-grey;
+	border-radius: 0.3rem;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	padding: 0.7rem 1rem;
+	outline: unset;
+}
+
+button {
+	background: unset;
 }

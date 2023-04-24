@@ -1,8 +1,5 @@
 import { NavLink } from "react-router-dom";
 
-// TODO: stopped here
-// finish navbar setup
-
 const Navbar = () => {
 	return (
 		<nav className="nav">

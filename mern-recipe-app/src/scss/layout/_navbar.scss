@@ -1,46 +1,49 @@
 @use "../abstracts" as *;
 
+// TODO: refactor this file
+
 .nav {
 	height: 50px;
 	width: 100%;
 	background-color: $bg-color;
 	position: relative;
-}
 
-.nav > .nav-header {
-	display: inline;
-}
+	.nav-header {
+		display: inline;
 
-.nav > .nav-header > .nav-title {
-	display: inline-block;
-	font-size: 22px;
-	color: $white;
-	padding: 10px 10px 10px 10px;
-}
+		.nav-title {
+			display: inline-block;
+			font-size: 22px;
+			color: $white;
+			padding: 10px 10px 10px 10px;
+		}
+	}
 
-.nav > .nav-btn {
-	display: none;
-}
+	.nav-btn {
+		display: none;
+	}
 
-.nav > .nav-links {
-	display: inline;
-	float: right;
-	font-size: 18px;
-}
+	.nav-links {
+		display: inline;
+		float: right;
+		font-size: 18px;
+		text-transform: capitalize;
 
-.nav > .nav-links > a {
-	display: inline-block;
-	padding: 13px 10px 13px 10px;
-	text-decoration: none;
-	color: $secondary-color;
-}
+		a {
+			display: inline-block;
+			padding: 13px 10px 13px 10px;
+			text-decoration: none;
+			color: $secondary-color;
+		}
 
-.nav > .nav-links > a:hover {
-	background-color: $bg-transparent-color;
-}
+		a:hover {
+			background-color: $bg-transparent-color;
+		}
+	}
 
-.nav > #nav-check {
-	display: none;
+	#nav-check {
+		display: none;
+	}
 }
 
 @media (max-width: 600px) {
