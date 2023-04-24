@@ -4,13 +4,12 @@ import Auth from "./views/Auth";
 import CreateRecipe from "./views/CreateRecipe";
 import SavedRecipes from "./views/SavedRecipes";
 import Error from "./views/Error";
-
-// TODO: stopped here
-// complete project setup: watch zod tutorial
+import Navbar from "./components/navigation/Navbar";
 
 function App() {
 	return (
 		<>
+			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="auth" element={<Auth />} />
