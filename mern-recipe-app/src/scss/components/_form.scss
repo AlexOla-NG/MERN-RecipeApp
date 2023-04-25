@@ -1,5 +1,18 @@
-.form {
+.form-wrapper {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: 1.5rem;
+	padding: 0.7rem 1rem;
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		// TODO: this style is not being applied. plz fix
+		p span {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	}
 }

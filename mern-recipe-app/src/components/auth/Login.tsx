@@ -4,7 +4,7 @@ import { IAuth } from "./interface";
 
 // TODO: setup password input component, add a visibility toggle
 
-const Login = ({ defaultFormData }: IAuth) => {
+const Login = ({ defaultFormData, toggleView }: IAuth) => {
 	const [formData, setFormData] = useState(defaultFormData);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,24 +18,31 @@ const Login = ({ defaultFormData }: IAuth) => {
 	};
 
 	return (
-		<form className="form" onSubmit={handleSubmit}>
-			<input
-				type="text"
-				placeholder="Email"
-				name="email"
-				value={formData?.email}
-				onChange={handleChange}
-			/>
-			<input
-				type="password"
-				name="password"
-				placeholder="Password"
-				value={formData?.password}
-				onChange={handleChange}
-			/>
+		<section className="form-wrapper">
+			<h2>login</h2>
+			<form className="form" onSubmit={handleSubmit}>
+				<input
+					type="text"
+					placeholder="Email"
+					name="email"
+					value={formData?.email}
+					onChange={handleChange}
+				/>
+				<input
+					type="password"
+					name="password"
+					placeholder="Password"
+					value={formData?.password}
+					onChange={handleChange}
+				/>
 
-			<Button />
-		</form>
+				<Button />
+			</form>
+			<p>
+				Don't have an account?{" "}
+				<span onClick={toggleView}>Register</span>
+			</p>
+		</section>
 	);
 };
 
