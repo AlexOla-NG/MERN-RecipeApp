@@ -1,4 +1,6 @@
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./views/Home";
 import Auth from "./views/Auth";
 import CreateRecipe from "./views/CreateRecipe";
@@ -17,6 +19,7 @@ function App() {
 				<Route path="saved-recipes" element={<SavedRecipes />} />
 				<Route path="*" element={<Error />} />
 			</Routes>
+			<ToastContainer />
 		</>
 	);
 }

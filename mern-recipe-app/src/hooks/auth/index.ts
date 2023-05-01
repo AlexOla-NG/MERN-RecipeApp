@@ -3,14 +3,22 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../axios-Instance";
 import { queryKeys } from "../../react-query/constants";
 import { errorAlert, successAlert } from "../../utils";
-import { IFormData } from "../../components/auth/interface";
 
 // TODO: stopped here
-// setup register & login hooks
+// get token & user id from successful user login
 
-const register = async (formData: IFormData) => {
-	const res = await axiosInstance.post("/auth/register", {
-		body: formData,
+const register = async (formData: unknown) => {
+	const res = await axiosInstance.post("/auth/register", formData, {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+
+	return res?.data?.data;
+};
+
+const login = async (formData: unknown) => {
+	const res = await axiosInstance.post("/auth/login", formData, {
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -23,10 +31,10 @@ export const useRegister = () => {
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 	const { isSuccess, mutate, isLoading } = useMutation({
-		mutationFn: (formData) => register(formData),
+		mutationFn: (formData: unknown) => register(formData),
 		onSuccess: () => {
-			queryClient.invalidateQueries([queryKeys.result]);
-			successAlert(`Response successfully submitted!`);
+			queryClient.invalidateQueries([queryKeys.authentication]);
+			successAlert(`User registration successful!`);
 		},
 		onError: (error) => {
 			errorAlert(error);
@@ -34,4 +42,24 @@ export const useRegister = () => {
 	});
 
 	return { isSuccess, mutate, isLoading };
+};
+
+export const useLogin = () => {
+	const queryClient = useQueryClient();
+	const navigate = useNavigate();
+	const { data, isSuccess, mutate, isLoading } = useMutation({
+		mutationFn: (formData: unknown) => login(formData),
+		onSuccess: () => {
+			queryClient.invalidateQueries([queryKeys.authentication]);
+			successAlert(`Login successful!`);
+			setTimeout(() => {
+				navigate("/");
+			}, 3000);
+		},
+		onError: (error) => {
+			errorAlert(error);
+		},
+	});
+
+	return { data, isLoading, isSuccess, mutate };
 };

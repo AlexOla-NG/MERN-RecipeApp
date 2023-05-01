@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Login from "../components/auth/Login";
 import { useState } from "react";
 import Register from "../components/auth/Register";
+import { IFormData } from "../components/auth/interface";
 
 // TODO: stopped here
 // setup register component
@@ -11,7 +12,7 @@ import Register from "../components/auth/Register";
 
 const Auth = () => {
 	const [view, setView] = useState("login");
-	const defaultFormData = {
+	const defaultFormData: IFormData = {
 		email: "",
 		password: "",
 	};

@@ -4,6 +4,7 @@ const buttonSchema = z
 	.object({
 		title: z.string(),
 		type: z.enum(["submit", "button"]),
+		disabled: z.boolean(),
 		onClick: z.function(),
 	})
 	.partial();
@@ -11,10 +12,10 @@ const buttonSchema = z
 type IButton = z.infer<typeof buttonSchema>;
 
 const Button = (props: IButton) => {
-	const { title, type } = props;
+	const { title, type, disabled } = props;
 
 	return (
-		<button className="btn" type={type}>
+		<button className="btn" type={type} disabled={disabled}>
 			{title}
 		</button>
 	);
