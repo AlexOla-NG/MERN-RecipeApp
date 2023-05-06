@@ -1,31 +1,16 @@
 import { NavLink } from "react-router-dom";
-import useLocalStorage from "../../hooks/local-storage";
 import Button from "../button/Button";
-import { getLoginToken, removeLoginToken } from "../../storage";
-import { useEffect, useState } from "react";
+import { TokenSchema } from "../auth/interface";
+import { successAlert } from "../../utils";
 
-// TODO: stopped here
-// loginToken value should change from null to string when user logs in, but it isn't
-// plz fixx
-
-const Navbar = () => {
-	// const [value, setValue, removeFromLocalStorage] = useLocalStorage("auth");
-	// const [loginToken, setLoginToken] = useState(getLoginToken());
-	const loginToken = getLoginToken();
-	console.log(loginToken);
-
-	// useEffect(() => {
-	// 	if (loginToken === null) getLoginToken();
-	// }, [loginToken]);
-
-	// STUB: remove value from localStorage onclick
-	const handleClick = () => {
+const Navbar = ({ handleTokenUpdate, token }: TokenSchema) => {
+	// STUB: set loginToken state to false on logout
+	const handleLogout = () => {
 		console.log("logout clicked!");
-		removeLoginToken();
-		// setLoginToken(null);
-		// setValue();
-		// removeFromLocalStorage();
-		console.log("logged out!");
+		if (handleTokenUpdate) {
+			handleTokenUpdate(false);
+			successAlert("Logged out successfully!");
+		}
 	};
 	return (
 		<nav className="nav">
@@ -45,14 +30,14 @@ const Navbar = () => {
 				<NavLink to="/">recipes</NavLink>
 				<NavLink to="create-recipe">create recipe</NavLink>
 				<NavLink to="saved-recipes">saved recipes</NavLink>
-				{loginToken ? (
+				{token ? (
 					// TODO: fix this button.  onClick doesn't work
 					// <Button
-					// 	onClick={handleClick}
+					// 	onClick={handleLogout}
 					// 	title="logout"
 					// 	type="button"
 					// />
-					<button onClick={handleClick}>logout</button>
+					<button onClick={handleLogout}>logout</button>
 				) : (
 					<NavLink to="auth">login/register</NavLink>
 				)}

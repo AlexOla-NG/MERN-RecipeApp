@@ -2,9 +2,7 @@ type User = {
 	// define the properties of User type here
 };
 
-type Token = {
-	// define the properties of Token type here
-};
+export type Token = string | boolean;
 
 export function getStoredUser(): User | null {
 	const storedUser = localStorage.getItem("user");

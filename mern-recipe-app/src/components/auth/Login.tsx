@@ -2,22 +2,18 @@ import { FormEvent, useEffect, useState } from "react";
 import Button from "../button/Button";
 import { IAuth } from "./interface";
 import { useLogin } from "../../hooks/auth";
-import useLocalStorage from "../../hooks/local-storage";
-import { setLoginToken } from "../../storage";
 
 // TODO: setup password input component, add a visibility toggle
 
-const Login = ({ defaultFormData, toggleView }: IAuth) => {
+const Login = ({ defaultFormData, toggleView, handleTokenUpdate }: IAuth) => {
 	const { data, isLoading, isSuccess, mutate } = useLogin();
-	// const [_, setValue] = useLocalStorage("auth");
 
 	const [formData, setFormData] = useState(defaultFormData);
 
+	// STUB: update loginToken state on login, reset form data
 	useEffect(() => {
-		if (data && isSuccess) {
-			setLoginToken(data.token);
-
-			// setValue(data);
+		if (data && isSuccess && handleTokenUpdate) {
+			handleTokenUpdate(data.token);
 			setFormData(defaultFormData);
 		}
 	}, [isSuccess, data]);

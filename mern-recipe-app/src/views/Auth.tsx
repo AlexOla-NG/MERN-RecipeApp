@@ -1,16 +1,13 @@
-import { Link } from "react-router-dom";
-import Login from "../components/auth/Login";
 import { useState } from "react";
+
+import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
-import { IFormData } from "../components/auth/interface";
+import { IFormData, TokenSchema } from "../components/auth/interface";
 
-// TODO: stopped here
-// setup register component
+const Auth = ({ handleTokenUpdate }: TokenSchema) => {
+	// NOTE: view is state that tracks which component is on the screen
+	// toggleView will change the view
 
-// NOTE: view is state that tracks which component is on the screen
-// toggleView will change the view
-
-const Auth = () => {
 	const [view, setView] = useState("login");
 	const defaultFormData: IFormData = {
 		email: "",
@@ -27,6 +24,7 @@ const Auth = () => {
 				<Login
 					defaultFormData={defaultFormData}
 					toggleView={toggleView}
+					handleTokenUpdate={handleTokenUpdate}
 				/>
 			)}
 			{view === "register" && (
