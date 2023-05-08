@@ -6,7 +6,6 @@ import { successAlert } from "../../utils";
 const Navbar = ({ handleTokenUpdate, token }: TokenSchema) => {
 	// STUB: set loginToken state to false on logout
 	const handleLogout = () => {
-		console.log("logout clicked!");
 		if (handleTokenUpdate) {
 			handleTokenUpdate(false);
 			successAlert("Logged out successfully!");

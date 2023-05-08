@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import Button from "../button/Button";
 import { IAuth } from "./interface";
 import { useLogin } from "../../hooks/auth";
+import { setStoredUser } from "../../storage";
 
 // TODO: setup password input component, add a visibility toggle
 
@@ -14,6 +15,7 @@ const Login = ({ defaultFormData, toggleView, handleTokenUpdate }: IAuth) => {
 	useEffect(() => {
 		if (data && isSuccess && handleTokenUpdate) {
 			handleTokenUpdate(data.token);
+			setStoredUser(data.userID);
 			setFormData(defaultFormData);
 		}
 	}, [isSuccess, data]);

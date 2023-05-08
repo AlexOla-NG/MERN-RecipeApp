@@ -13,6 +13,7 @@ import {
 	Token,
 	getLoginToken,
 	removeLoginToken,
+	removeUserID,
 	setLoginToken as updateLoginToken,
 } from "./storage";
 
@@ -24,9 +25,12 @@ function App() {
 
 	// NOTE: useeffect is triggered when loginToken state is updated across all components
 	useEffect(() => {
-		// if loginToken is not false, update loginToken in localStorage; else remove loginToken from localStorage
+		// if loginToken is not false, update loginToken in localStorage; else remove loginToken & userID from localStorage
 		if (loginToken) updateLoginToken(loginToken);
-		else removeLoginToken();
+		else {
+			removeLoginToken();
+			removeUserID();
+		}
 	}, [loginToken]);
 
 	// STUB: create function that updates loginToken state; pass to auth, navbar

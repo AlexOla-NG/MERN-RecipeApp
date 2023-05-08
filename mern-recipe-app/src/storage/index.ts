@@ -1,16 +1,14 @@
-type User = {
-	// define the properties of User type here
-};
+type UserID = string | boolean;
 
 export type Token = string | boolean;
 
-export function getStoredUser(): User | null {
-	const storedUser = localStorage.getItem("user");
+export function getStoredUser(): UserID | null {
+	const storedUser = localStorage.getItem("userID");
 	return storedUser ? JSON.parse(storedUser) : null;
 }
 
-export function setStoredUser(user: unknown): void {
-	localStorage.setItem("user", JSON.stringify(user));
+export function setStoredUser(userID: unknown): void {
+	localStorage.setItem("userID", JSON.stringify(userID));
 }
 
 // STUB: save login token to local storage
@@ -27,4 +25,9 @@ export function getLoginToken(): Token | null {
 // STUB: remove login token from local storage
 export function removeLoginToken() {
 	localStorage.removeItem("token");
+}
+
+// STUB: remove login token from local storage
+export function removeUserID() {
+	localStorage.removeItem("userID");
 }
