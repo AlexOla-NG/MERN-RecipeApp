@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import Button from "../button/Button";
 import { TokenSchema } from "../auth/interface";
 import { successAlert } from "../../utils";
 
@@ -11,6 +10,27 @@ const Navbar = ({ handleTokenUpdate, token }: TokenSchema) => {
 			successAlert("Logged out successfully!");
 		}
 	};
+
+	// STUB: render different navlinks depending on whether user is logged in/out
+	let output;
+	if (token) {
+		output = (
+			<>
+				<NavLink to="/">recipes</NavLink>
+				<NavLink to="create-recipe">create recipe</NavLink>
+				<NavLink to="saved-recipes">saved recipes</NavLink>
+				<button onClick={handleLogout}>logout</button>
+			</>
+		);
+	} else {
+		output = (
+			<>
+				<NavLink to="/">recipes</NavLink>
+				<NavLink to="auth">login/register</NavLink>
+			</>
+		);
+	}
+
 	return (
 		<nav className="nav">
 			<input type="checkbox" id="nav-check" />
@@ -25,22 +45,7 @@ const Navbar = ({ handleTokenUpdate, token }: TokenSchema) => {
 				</label>
 			</div>
 
-			<div className="nav-links">
-				<NavLink to="/">recipes</NavLink>
-				<NavLink to="create-recipe">create recipe</NavLink>
-				<NavLink to="saved-recipes">saved recipes</NavLink>
-				{token ? (
-					// TODO: fix this button.  onClick doesn't work
-					// <Button
-					// 	onClick={handleLogout}
-					// 	title="logout"
-					// 	type="button"
-					// />
-					<button onClick={handleLogout}>logout</button>
-				) : (
-					<NavLink to="auth">login/register</NavLink>
-				)}
-			</div>
+			<div className="nav-links">{output}</div>
 		</nav>
 	);
 };

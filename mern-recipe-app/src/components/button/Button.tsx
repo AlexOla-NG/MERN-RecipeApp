@@ -11,6 +11,8 @@ const buttonSchema = z
 
 type IButton = z.infer<typeof buttonSchema>;
 
+// TODO: fix Button component, onclick does not work
+
 const Button = (props: IButton) => {
 	const { title, type, disabled } = props;
 
