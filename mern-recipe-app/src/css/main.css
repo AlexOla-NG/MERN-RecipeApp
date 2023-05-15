@@ -177,19 +177,21 @@ button {
   max-width: 25rem;
   text-transform: capitalize;
 }
-.create-recipe form label {
+.create-recipe form label,
+.create-recipe form .ingredients-wrapper > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-weight: 600;
 }
-.create-recipe form div {
+.create-recipe form .ingredients-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.5rem;
 }
-.create-recipe form div label {
-  width: 100%;
+.create-recipe form .ingredients-wrapper .ingredient svg {
+  width: 2rem;
+  height: auto;
 }
 
 .nav {

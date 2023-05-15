@@ -11,20 +11,24 @@
 		max-width: 25rem;
 		text-transform: capitalize;
 
-		label {
+		label,
+		.ingredients-wrapper > div {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			font-weight: 600;
 		}
 
-		div {
+		.ingredients-wrapper {
 			display: flex;
-			flex-wrap: wrap;
+			flex-direction: column;
 			gap: 0.5rem;
 
-			label {
-				width: 100%;
+			.ingredient {
+				svg {
+					width: 2rem;
+					height: auto;
+				}
 			}
 		}
 	}
