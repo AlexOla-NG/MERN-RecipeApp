@@ -1,6 +1,8 @@
 import React, { FormEvent, useState } from "react";
 
 import { ReactComponent as MinusIcon } from "../assets/minus-icon.svg";
+import { useSaveRecipes } from "../hooks/recipe";
+import { getStoredUser } from "../storage";
 
 // TODO: stopped here
 // finish setting up form
@@ -12,8 +14,9 @@ const CreateRecipe = () => {
 		instructions: "",
 		imageUrl: "",
 		cookingTime: 0,
-		userOwner: "",
+		userOwner: getStoredUser(),
 	});
+	const { mutate } = useSaveRecipes();
 
 	// STUB: general onchange handler
 	const handleChange = (
@@ -54,7 +57,7 @@ const CreateRecipe = () => {
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		// mutate(formData);
+		mutate(formData);
 	};
 
 	return (

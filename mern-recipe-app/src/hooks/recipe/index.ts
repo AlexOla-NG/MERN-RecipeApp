@@ -5,10 +5,10 @@ import { queryKeys } from "../../react-query/constants";
 import { errorAlert, successAlert } from "../../utils";
 
 // TODO: stopped here
-// setup hook for creating recipe
+// debug error on useGetRecipes
 
-const register = async (formData: unknown) => {
-	const res = await axiosInstance.post("/auth/register", formData, {
+const saveRecipes = async (formData: unknown) => {
+	const res = await axiosInstance.post("/recipes", formData, {
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -17,8 +17,8 @@ const register = async (formData: unknown) => {
 	return res?.data?.data;
 };
 
-const login = async (formData: unknown) => {
-	const res = await axiosInstance.post("/auth/login", formData, {
+const getRecipes = async () => {
+	const res = await axiosInstance.get("/recipes", {
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -27,31 +27,14 @@ const login = async (formData: unknown) => {
 	return res?.data?.data;
 };
 
-export const useRegister = () => {
+export const useSaveRecipes = () => {
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 	const { isSuccess, mutate, isLoading } = useMutation({
-		mutationFn: (formData: unknown) => register(formData),
+		mutationFn: (formData: unknown) => saveRecipes(formData),
 		onSuccess: () => {
-			queryClient.invalidateQueries([queryKeys.authentication]);
-			successAlert(`User registration successful!`);
-		},
-		onError: (error) => {
-			errorAlert(error);
-		},
-	});
-
-	return { isSuccess, mutate, isLoading };
-};
-
-export const useLogin = () => {
-	const queryClient = useQueryClient();
-	const navigate = useNavigate();
-	const { data, isSuccess, mutate, isLoading } = useMutation({
-		mutationFn: (formData: unknown) => login(formData),
-		onSuccess: () => {
-			queryClient.invalidateQueries([queryKeys.authentication]);
-			successAlert(`Login successful!`);
+			queryClient.invalidateQueries([queryKeys.recipes]);
+			successAlert(`Recipe created successfully!`);
 			setTimeout(() => {
 				navigate("/");
 			}, 3000);
@@ -61,5 +44,29 @@ export const useLogin = () => {
 		},
 	});
 
-	return { data, isLoading, isSuccess, mutate };
+	return { isSuccess, mutate, isLoading };
+};
+
+export const useGetRecipes = () => {
+	const queryClient = useQueryClient();
+	const fallback = [""];
+	const {
+		data = fallback,
+		isLoading,
+		isError,
+		error,
+	} = useQuery({
+		queryKey: [queryKeys.recipes],
+		queryFn: () => getRecipes(),
+		onSuccess: () => {
+			queryClient.invalidateQueries([queryKeys.recipes]);
+			successAlert(`Recipe created successfully!`);
+		},
+		onError: (error) => {
+			console.error(error);
+
+			errorAlert(error);
+		},
+	});
+	return data;
 };

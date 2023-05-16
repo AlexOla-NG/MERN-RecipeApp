@@ -170,6 +170,11 @@ button {
   gap: 2rem;
   padding: 2rem 1rem;
 }
+@media screen and (min-width: 768px) {
+  .create-recipe > * {
+    margin: 0 auto;
+  }
+}
 .create-recipe form {
   display: flex;
   flex-direction: column;
@@ -182,6 +187,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
   font-weight: 600;
 }
 .create-recipe form .ingredients-wrapper {

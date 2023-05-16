@@ -1,8 +1,16 @@
+@use "../abstracts/" as *;
+
 .create-recipe {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
 	padding: 2rem 1rem;
+
+	@include media-md {
+		& > * {
+			margin: 0 auto;
+		}
+	}
 
 	form {
 		display: flex;
@@ -16,6 +24,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			gap: 2rem;
 			font-weight: 600;
 		}
 
