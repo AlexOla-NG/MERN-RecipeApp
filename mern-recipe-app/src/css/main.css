@@ -200,6 +200,17 @@ button {
   height: auto;
 }
 
+.recipe-card .image-wrapper {
+  width: 100%;
+  height: 100px;
+}
+.recipe-card .image-wrapper img {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .nav {
   height: 50px;
   width: 100%;

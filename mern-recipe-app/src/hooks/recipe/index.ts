@@ -24,7 +24,7 @@ const getRecipes = async () => {
 		},
 	});
 
-	return res?.data?.data;
+	return res?.data;
 };
 
 export const useSaveRecipes = () => {
@@ -33,7 +33,7 @@ export const useSaveRecipes = () => {
 	const { isSuccess, mutate, isLoading } = useMutation({
 		mutationFn: (formData: unknown) => saveRecipes(formData),
 		onSuccess: () => {
-			queryClient.invalidateQueries([queryKeys.recipes]);
+			queryClient.invalidateQueries([queryKeys.recipe]);
 			successAlert(`Recipe created successfully!`);
 			setTimeout(() => {
 				navigate("/");
@@ -48,19 +48,16 @@ export const useSaveRecipes = () => {
 };
 
 export const useGetRecipes = () => {
-	const queryClient = useQueryClient();
 	const fallback = [""];
 	const {
 		data = fallback,
 		isLoading,
-		isError,
-		error,
+		isSuccess,
 	} = useQuery({
 		queryKey: [queryKeys.recipes],
 		queryFn: () => getRecipes(),
 		onSuccess: () => {
-			queryClient.invalidateQueries([queryKeys.recipes]);
-			successAlert(`Recipe created successfully!`);
+			successAlert(`Recipes loaded successfully!`);
 		},
 		onError: (error) => {
 			console.error(error);
@@ -68,5 +65,5 @@ export const useGetRecipes = () => {
 			errorAlert(error);
 		},
 	});
-	return data;
+	return { data, isSuccess, isLoading };
 };

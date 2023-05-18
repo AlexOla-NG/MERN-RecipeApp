@@ -34,3 +34,19 @@ export const errorAlert = (error: any) => {
 export const infoAlert = (msg: string) => {
 	toast.info(msg || "Info Notification !", toastOptions);
 };
+
+// STUB: convert seconds to hours
+export function convertSecondsToHours(seconds: number) {
+	var minutes = Math.floor(seconds / 60);
+	var remainingSeconds = seconds % 60;
+
+	return convertMinutesToHours(minutes) + " " + remainingSeconds + "s";
+}
+
+function convertMinutesToHours(minutes: number) {
+	var hours = Math.floor(minutes / 60);
+	var remainingMinutes = minutes % 60;
+
+	var formattedTime = hours + "h " + remainingMinutes + "m";
+	return formattedTime;
+}
