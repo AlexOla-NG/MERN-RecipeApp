@@ -1,4 +1,4 @@
-type UserID = string | boolean;
+export type UserID = string | boolean;
 
 export type Token = string | boolean;
 

@@ -11,11 +11,11 @@ const Home = () => {
 	}, [isSuccess]);
 
 	return (
-		<div>
+		<main className="home">
 			{recipes.map((recipe: any) => (
-				<RecipeCard key={recipe.id} {...recipe} />
+				<RecipeCard key={recipe._id} {...recipe} />
 			))}
-		</div>
+		</main>
 	);
 };
 

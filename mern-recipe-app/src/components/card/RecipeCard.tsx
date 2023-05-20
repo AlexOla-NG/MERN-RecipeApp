@@ -1,10 +1,13 @@
 import React from "react";
-import { convertSecondsToHours } from "../../utils";
+import { convertSecondToMinutes } from "../../utils";
+import { getStoredUser } from "../../storage";
+import { useGetRecipeIDs, useSaveRecipe } from "../../hooks/recipe";
 
 // TODO: stopped here
-// style the recipe card
+// fix userID type error
 
 type RecipeCardProps = {
+	_id: string;
 	name: string;
 	instructions: string;
 	cookingTime: number;
@@ -13,12 +16,25 @@ type RecipeCardProps = {
 };
 
 const RecipeCard = ({
+	_id,
 	name,
 	instructions,
 	cookingTime,
 	imageUrl,
 	ingredients,
 }: RecipeCardProps) => {
+	const { mutate, isLoading } = useSaveRecipe();
+	const userID = getStoredUser();
+	const {} = useGetRecipeIDs(userID);
+
+	const handleSaveRecipe = (id: string) => {
+		const data = {
+			recipeID: id,
+			userID: getStoredUser(),
+		};
+		mutate(data);
+	};
+
 	return (
 		<article className="recipe-card">
 			<div className="image-wrapper">
@@ -26,13 +42,28 @@ const RecipeCard = ({
 			</div>
 
 			<div className="content">
-				<h2>{name}</h2>
-				<p>{instructions}</p>
-				<p>Cooking Time: {convertSecondsToHours(cookingTime)} mins</p>
+				<div className="header">
+					<h2>{name}</h2>
+					<button
+						onClick={() => handleSaveRecipe(_id)}
+						disabled={isLoading}
+					>
+						save
+					</button>
+				</div>
+				<p>
+					<span>instructions: </span>
+					{instructions}
+				</p>
+				<p>
+					<span>cooking time: </span>
+					{convertSecondToMinutes(cookingTime)}
+				</p>
 
 				<ul>
-					{ingredients.map((ingredient, index) => (
-						<li key={index}>{ingredient}</li>
+					<span>ingredients: </span>
+					{ingredients.map((ingredient) => (
+						<li key={ingredient}>{ingredient}</li>
 					))}
 				</ul>
 			</div>

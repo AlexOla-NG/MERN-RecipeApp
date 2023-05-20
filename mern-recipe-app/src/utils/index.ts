@@ -50,3 +50,12 @@ function convertMinutesToHours(minutes: number) {
 	var formattedTime = hours + "h " + remainingMinutes + "m";
 	return formattedTime;
 }
+
+// STUB: convert seconds to mins
+export function convertSecondToMinutes(seconds: number) {
+	var minutes = Math.floor(seconds / 60);
+	var remainingSeconds = seconds % 60;
+
+	var formattedTime = minutes + "m " + remainingSeconds + "s";
+	return formattedTime;
+}

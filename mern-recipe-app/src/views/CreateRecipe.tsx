@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
 
 import { ReactComponent as MinusIcon } from "../assets/minus-icon.svg";
-import { useSaveRecipes } from "../hooks/recipe";
+import { useCreateRecipe } from "../hooks/recipe";
 import { getStoredUser } from "../storage";
 
 // TODO: stopped here
@@ -16,7 +16,7 @@ const CreateRecipe = () => {
 		cookingTime: 0,
 		userOwner: getStoredUser(),
 	});
-	const { mutate } = useSaveRecipes();
+	const { mutate } = useCreateRecipe();
 
 	// STUB: general onchange handler
 	const handleChange = (
