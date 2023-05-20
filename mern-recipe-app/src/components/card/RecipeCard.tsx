@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { convertSecondToMinutes } from "../../utils";
 import { getStoredUser } from "../../storage";
 import { useGetRecipeIDs, useSaveRecipe } from "../../hooks/recipe";
 
 // TODO: stopped here
-// fix userID type error
+// fix error: (intermediate value) is not iterable
+// error pops up because we need to have a defined value for savedRecipes on first render
 
 type RecipeCardProps = {
 	_id: string;
@@ -23,16 +24,33 @@ const RecipeCard = ({
 	imageUrl,
 	ingredients,
 }: RecipeCardProps) => {
-	const { mutate, isLoading } = useSaveRecipe();
-	const userID = getStoredUser();
-	const {} = useGetRecipeIDs(userID);
+	const userID = getStoredUser() as string;
+	const { data } = useGetRecipeIDs(userID);
+	const { mutate, isLoading, isSuccess } = useSaveRecipe();
+	const [savedRecipes, setSavedRecipes] = useState([...data?.savedRecipes]);
+	const [isRecipeSaved, setIsRecipeSaved] = useState(false);
 
+	useEffect(() => {
+		if (savedRecipes?.length > 0) {
+			setIsRecipeSaved(savedRecipes.includes(_id));
+			// setIsRecipeSaved(isInArray(data, _id));
+		}
+	}, [savedRecipes]);
+
+	useEffect(() => {
+		if (isSuccess) {
+			setSavedRecipes(data?.savedRecipes);
+		}
+	}, [isSuccess, data]);
+
+	// STUB: trigger mutation for saving recipe
 	const handleSaveRecipe = (id: string) => {
 		const data = {
 			recipeID: id,
 			userID: getStoredUser(),
 		};
 		mutate(data);
+		console.log("recipe saved");
 	};
 
 	return (
@@ -46,9 +64,9 @@ const RecipeCard = ({
 					<h2>{name}</h2>
 					<button
 						onClick={() => handleSaveRecipe(_id)}
-						disabled={isLoading}
+						disabled={isLoading || isRecipeSaved}
 					>
-						save
+						{isRecipeSaved ? `saved` : `save`}
 					</button>
 				</div>
 				<p>

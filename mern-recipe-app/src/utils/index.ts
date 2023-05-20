@@ -59,3 +59,10 @@ export function convertSecondToMinutes(seconds: number) {
 	var formattedTime = minutes + "m " + remainingSeconds + "s";
 	return formattedTime;
 }
+
+// STUB: check if element is array
+export function isInArray(element: string, array: string[]) {
+	if (array.length > 0) {
+		return array.includes(element);
+	}
+}
