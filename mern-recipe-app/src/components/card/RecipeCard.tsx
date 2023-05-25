@@ -14,6 +14,7 @@ type RecipeCardProps = {
 	cookingTime: number;
 	imageUrl: string;
 	ingredients: string[];
+	savedRecipeIDs: string[];
 };
 
 const RecipeCard = ({
@@ -23,25 +24,12 @@ const RecipeCard = ({
 	cookingTime,
 	imageUrl,
 	ingredients,
+	savedRecipeIDs,
 }: RecipeCardProps) => {
-	const userID = getStoredUser() as string;
-	const { data } = useGetRecipeIDs(userID);
 	const { mutate, isLoading, isSuccess } = useSaveRecipe();
-	const [savedRecipes, setSavedRecipes] = useState([...data?.savedRecipes]);
-	const [isRecipeSaved, setIsRecipeSaved] = useState(false);
-
-	useEffect(() => {
-		if (savedRecipes?.length > 0) {
-			setIsRecipeSaved(savedRecipes.includes(_id));
-			// setIsRecipeSaved(isInArray(data, _id));
-		}
-	}, [savedRecipes]);
-
-	useEffect(() => {
-		if (isSuccess) {
-			setSavedRecipes(data?.savedRecipes);
-		}
-	}, [isSuccess, data]);
+	const [isRecipeSaved, setIsRecipeSaved] = useState(
+		savedRecipeIDs.includes(_id)
+	);
 
 	// STUB: trigger mutation for saving recipe
 	const handleSaveRecipe = (id: string) => {

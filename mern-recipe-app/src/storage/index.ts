@@ -2,9 +2,9 @@ export type UserID = string | boolean;
 
 export type Token = string | boolean;
 
-export function getStoredUser(): UserID | null {
+export function getStoredUser(): UserID | undefined {
 	const storedUser = localStorage.getItem("userID");
-	return storedUser ? JSON.parse(storedUser) : null;
+	return storedUser ? JSON.parse(storedUser) : undefined;
 }
 
 export function setStoredUser(userID: unknown): void {
