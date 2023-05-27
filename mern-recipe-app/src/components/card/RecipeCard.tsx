@@ -15,6 +15,9 @@ type RecipeCardProps = {
 	imageUrl: string;
 	ingredients: string[];
 	savedRecipeIDs: string[];
+	isSaved(recipeID: string): boolean;
+	getSavedRecipeIDs(): void;
+	saveRecipeIDs(recipeIDs: any): void;
 };
 
 const RecipeCard = ({
@@ -25,11 +28,24 @@ const RecipeCard = ({
 	imageUrl,
 	ingredients,
 	savedRecipeIDs,
+	isSaved,
+	getSavedRecipeIDs,
+	saveRecipeIDs,
 }: RecipeCardProps) => {
-	const { mutate, isLoading, isSuccess } = useSaveRecipe();
-	const [isRecipeSaved, setIsRecipeSaved] = useState(
-		savedRecipeIDs.includes(_id)
-	);
+	// const [isRecipeSaved, setIsRecipeSaved] = useState(isSaved(_id));
+	const { data, mutate, isLoading, isSuccess } = useSaveRecipe();
+
+	useEffect(() => {
+		if (isSuccess) getSavedRecipeIDs();
+	}, [isSuccess]);
+
+	// useEffect(() => {
+	// 	if (isSuccess) setIsRecipeSaved(isSaved(_id));
+	// }, [isSuccess]);
+
+	// useEffect(() => {
+	// 	if (isSuccess) saveRecipeIDs(data);
+	// }, [isSuccess]);
 
 	// STUB: trigger mutation for saving recipe
 	const handleSaveRecipe = (id: string) => {
@@ -39,6 +55,8 @@ const RecipeCard = ({
 		};
 		mutate(data);
 		console.log("recipe saved");
+		// getSavedRecipeIDs();
+		// console.log("getSavedRecipeIDs called");
 	};
 
 	return (
@@ -52,9 +70,11 @@ const RecipeCard = ({
 					<h2>{name}</h2>
 					<button
 						onClick={() => handleSaveRecipe(_id)}
-						disabled={isLoading || isRecipeSaved}
+						disabled={isLoading || isSaved(_id)}
+						// disabled={isLoading || isRecipeSaved}
 					>
-						{isRecipeSaved ? `saved` : `save`}
+						{isSaved(_id) ? `saved` : `save`}
+						{/* {isRecipeSaved ? `saved` : `save`} */}
 					</button>
 				</div>
 				<p>

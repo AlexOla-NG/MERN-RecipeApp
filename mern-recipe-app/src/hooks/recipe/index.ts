@@ -37,7 +37,13 @@ const getRecipes = async () => {
 
 // STUB: get a list of all recipe IDs that a logged in user has saved
 const getRecipeIDs = async (userID: UserID) => {
-	const res = await axiosInstance.get(`/savedRecipes/ids/${userID}`);
+	const res = await axiosInstance.get(`/recipes/savedRecipes/ids/${userID}`);
+	return res?.data;
+};
+
+// STUB: get a list of recipes that a logged in user has saved
+const getSavedRecipes = async (userID: UserID) => {
+	const res = await axiosInstance.get(`/recipes/savedRecipes/${userID}`);
 	return res?.data;
 };
 
@@ -63,22 +69,18 @@ export const useCreateRecipe = () => {
 
 export const useSaveRecipe = () => {
 	const queryClient = useQueryClient();
-	const navigate = useNavigate();
-	const { isSuccess, mutate, isLoading } = useMutation({
+	const { isSuccess, mutate, isLoading, data } = useMutation({
 		mutationFn: (data: unknown) => saveRecipe(data),
 		onSuccess: () => {
-			queryClient.invalidateQueries([queryKeys.recipes]);
+			queryClient.invalidateQueries([queryKeys.savedRecipes]);
 			successAlert(`Recipe saved successfully!`);
-			setTimeout(() => {
-				navigate("/saved-recipes");
-			}, 3000);
 		},
 		onError: (error) => {
 			errorAlert(error);
 		},
 	});
 
-	return { isSuccess, mutate, isLoading };
+	return { isSuccess, mutate, isLoading, data };
 };
 
 export const useGetRecipes = () => {
@@ -102,32 +104,11 @@ export const useGetRecipes = () => {
 	return { data, isSuccess, isLoading };
 };
 
-// export const useGetRecipeIDs = (userID: UserID) => {
-// 	const fallback = [""];
-// 	const {
-// 		data = fallback,
-// 		isLoading,
-// 		isSuccess,
-// 	} = useQuery({
-// 		queryKey: [queryKeys.recipes, userID],
-// 		queryFn: () => getRecipeIDs(userID),
-// 		onSuccess: () => {
-// 			successAlert(`Recipes loaded successfully!`);
-// 		},
-// 		onError: (error) => {
-// 			console.error(error);
-
-// 			errorAlert(error);
-// 		},
-// 	});
-// 	return { data, isSuccess, isLoading };
-// };
-
 export const useGetRecipeIDs = () => {
 	const { isSuccess, mutate, data } = useMutation({
 		mutationFn: (userID: UserID) => getRecipeIDs(userID),
 		onSuccess: () => {
-			successAlert(`Recipes loaded successfully!`);
+			successAlert(`Saved recipes loaded successfully!`);
 		},
 		onError: (error) => {
 			console.error(error);
@@ -136,4 +117,26 @@ export const useGetRecipeIDs = () => {
 	});
 
 	return { isSuccess, mutate, data };
+};
+
+export const useGetSavedRecipes = (userID: UserID) => {
+	const fallback = [""];
+	const {
+		data = fallback,
+		isLoading,
+		isSuccess,
+	} = useQuery({
+		queryKey: [queryKeys.savedRecipes, userID],
+		queryFn: () => getSavedRecipes(userID),
+		onSuccess: () => {
+			successAlert(`Saved recipes loaded successfully!`);
+		},
+		onError: (error) => {
+			console.error(error);
+
+			errorAlert(error);
+		},
+		refetchOnMount: "always",
+	});
+	return { data, isSuccess, isLoading };
 };

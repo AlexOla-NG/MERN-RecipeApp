@@ -3,4 +3,5 @@ export const queryKeys = {
 	authentication: "authentication",
 	recipe: "recipe",
 	recipes: "recipes",
+	savedRecipes: "savedRecipes",
 };
