@@ -1,13 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { TokenSchema } from "../auth/interface";
 import { successAlert } from "../../utils";
 
 const Navbar = ({ handleTokenUpdate, token }: TokenSchema) => {
+	const navigate = useNavigate();
+
 	// STUB: set loginToken state to false on logout
 	const handleLogout = () => {
 		if (handleTokenUpdate) {
 			handleTokenUpdate(false);
 			successAlert("Logged out successfully!");
+			navigate("auth");
 		}
 	};
 

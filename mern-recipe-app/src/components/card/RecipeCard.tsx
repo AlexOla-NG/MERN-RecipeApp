@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useIsMutating } from "@tanstack/react-query";
 import { convertSecondToMinutes } from "../../utils";
+import { getStoredUser } from "../../storage";
 
 type RecipeCardProps = {
 	_id: string;
@@ -27,9 +27,10 @@ const RecipeCard = ({
 }: RecipeCardProps) => {
 	let location = useLocation();
 	const loading = useIsMutating();
+	const userID = getStoredUser();
 
 	let output;
-	if (location.pathname === "/" && isSaved && handleSaveRecipe) {
+	if (location.pathname === "/" && userID && isSaved && handleSaveRecipe) {
 		const isRecipeSaved = isSaved(_id);
 		output = (
 			<button

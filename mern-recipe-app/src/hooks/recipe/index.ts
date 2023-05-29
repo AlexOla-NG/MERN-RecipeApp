@@ -72,7 +72,6 @@ export const useSaveRecipe = () => {
 	const { isSuccess, mutate, isLoading, data } = useMutation({
 		mutationFn: (data: unknown) => saveRecipe(data),
 		onSuccess: () => {
-			queryClient.invalidateQueries([queryKeys.savedRecipes]);
 			successAlert(`Recipe saved successfully!`);
 		},
 		onError: (error) => {
@@ -108,7 +107,7 @@ export const useGetRecipeIDs = () => {
 	const { isSuccess, mutate, data } = useMutation({
 		mutationFn: (userID: UserID) => getRecipeIDs(userID),
 		onSuccess: () => {
-			successAlert(`Saved recipes loaded successfully!`);
+			successAlert(`Recipe IDs loaded successfully!`);
 		},
 		onError: (error) => {
 			console.error(error);

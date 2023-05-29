@@ -27,21 +27,21 @@ const Home = () => {
 	// STUB: if user is logged in, get saved recipes ID
 	useEffect(() => {
 		getSavedRecipeIDs();
-	}, [userID]);
+	}, []);
 
 	// STUB: load saved recipes from API on component mount
 	useEffect(() => {
-		if (isSavedRecipeIDSuccess) {
+		if (isSavedRecipeIDSuccess && recipeIDs) {
 			setSavedRecipes(recipeIDs?.savedRecipes);
 		}
-	}, [isSavedRecipeIDSuccess]);
+	}, [isSavedRecipeIDSuccess, recipeIDs]);
 
 	// STUB: update savedRecipes state on successfully saving new recipe
 	useEffect(() => {
 		if (isSavedRecipeSuccess) {
 			setSavedRecipes(savedRecipeIDs?.savedRecipes);
 		}
-	}, [isSavedRecipeSuccess]);
+	}, [isSavedRecipeSuccess, savedRecipeIDs]);
 
 	// STUB: get saved recipes IDs from API
 	const getSavedRecipeIDs = () => {
