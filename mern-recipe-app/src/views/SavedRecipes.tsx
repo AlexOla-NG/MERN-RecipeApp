@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useGetSavedRecipes } from "../hooks/recipe";
 import { getStoredUser } from "../storage";
-import SavedRecipeCard from "../components/card/SavedRecipeCard";
+import RecipeCard from "../components/card/RecipeCard";
 
 // TODO: stopped here
+// check if data refreshes when we navigate to the page or when a new recipe is saved
 // the data is not refreshing whenever we navigate to the page or when a new recipe is saved
 
 const SavedRecipes = () => {
@@ -19,7 +20,7 @@ const SavedRecipes = () => {
 	return (
 		<main className="home">
 			{recipes.map((recipe: any) => (
-				<SavedRecipeCard key={recipe._id} {...recipe} />
+				<RecipeCard key={recipe._id} {...recipe} />
 			))}
 		</main>
 	);

@@ -22,7 +22,7 @@ const saveRecipe = async (data: unknown) => {
 		},
 	});
 
-	return res?.data?.data;
+	return res?.data;
 };
 
 const getRecipes = async () => {

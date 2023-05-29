@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useIsMutating } from "@tanstack/react-query";
 import { convertSecondToMinutes } from "../../utils";
-import { getStoredUser } from "../../storage";
-import { useGetRecipeIDs, useSaveRecipe } from "../../hooks/recipe";
-
-// TODO: stopped here
-// fix error: (intermediate value) is not iterable
-// error pops up because we need to have a defined value for savedRecipes on first render
 
 type RecipeCardProps = {
 	_id: string;
@@ -15,9 +11,8 @@ type RecipeCardProps = {
 	imageUrl: string;
 	ingredients: string[];
 	savedRecipeIDs: string[];
-	isSaved(recipeID: string): boolean;
-	getSavedRecipeIDs(): void;
-	saveRecipeIDs(recipeIDs: any): void;
+	isSaved?(recipeID: string): boolean;
+	handleSaveRecipe?(id: string): void;
 };
 
 const RecipeCard = ({
@@ -27,37 +22,26 @@ const RecipeCard = ({
 	cookingTime,
 	imageUrl,
 	ingredients,
-	savedRecipeIDs,
 	isSaved,
-	getSavedRecipeIDs,
-	saveRecipeIDs,
+	handleSaveRecipe,
 }: RecipeCardProps) => {
-	// const [isRecipeSaved, setIsRecipeSaved] = useState(isSaved(_id));
-	const { data, mutate, isLoading, isSuccess } = useSaveRecipe();
+	let location = useLocation();
+	const loading = useIsMutating();
 
-	useEffect(() => {
-		if (isSuccess) getSavedRecipeIDs();
-	}, [isSuccess]);
-
-	// useEffect(() => {
-	// 	if (isSuccess) setIsRecipeSaved(isSaved(_id));
-	// }, [isSuccess]);
-
-	// useEffect(() => {
-	// 	if (isSuccess) saveRecipeIDs(data);
-	// }, [isSuccess]);
-
-	// STUB: trigger mutation for saving recipe
-	const handleSaveRecipe = (id: string) => {
-		const data = {
-			recipeID: id,
-			userID: getStoredUser(),
-		};
-		mutate(data);
-		console.log("recipe saved");
-		// getSavedRecipeIDs();
-		// console.log("getSavedRecipeIDs called");
-	};
+	let output;
+	if (location.pathname === "/" && isSaved && handleSaveRecipe) {
+		const isRecipeSaved = isSaved(_id);
+		output = (
+			<button
+				onClick={() => handleSaveRecipe(_id)}
+				disabled={loading == 1 || isRecipeSaved}
+			>
+				{isRecipeSaved ? `saved` : `save`}
+			</button>
+		);
+	} else {
+		output = null;
+	}
 
 	return (
 		<article className="recipe-card">
@@ -68,14 +52,7 @@ const RecipeCard = ({
 			<div className="content">
 				<div className="header">
 					<h2>{name}</h2>
-					<button
-						onClick={() => handleSaveRecipe(_id)}
-						disabled={isLoading || isSaved(_id)}
-						// disabled={isLoading || isRecipeSaved}
-					>
-						{isSaved(_id) ? `saved` : `save`}
-						{/* {isRecipeSaved ? `saved` : `save`} */}
-					</button>
+					{output}
 				</div>
 				<p>
 					<span>instructions: </span>
