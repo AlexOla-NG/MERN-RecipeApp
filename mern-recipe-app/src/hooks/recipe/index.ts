@@ -47,6 +47,19 @@ const getSavedRecipes = async (userID: UserID) => {
 	return res?.data;
 };
 
+// STUB: delete a recipe from the database that a logged in user has saved
+export type DeleteSavedRecipeData = {
+	recipeID: string;
+	userID: UserID;
+};
+const deleteSavedRecipes = async (data: DeleteSavedRecipeData) => {
+	const { recipeID, userID } = data;
+	const res = await axiosInstance.delete(
+		`/recipes/savedRecipes/${userID}/${recipeID}`
+	);
+	return res?.data;
+};
+
 export const useCreateRecipe = () => {
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
@@ -124,6 +137,7 @@ export const useGetSavedRecipes = (userID: UserID) => {
 		data = fallback,
 		isLoading,
 		isSuccess,
+		isStale,
 	} = useQuery({
 		queryKey: [queryKeys.savedRecipes, userID],
 		queryFn: () => getSavedRecipes(userID),
@@ -137,5 +151,22 @@ export const useGetSavedRecipes = (userID: UserID) => {
 		},
 		refetchOnMount: "always",
 	});
-	return { data, isSuccess, isLoading };
+	return { data, isSuccess, isLoading, isStale };
+};
+
+export const useDeleteSavedRecipe = () => {
+	const queryClient = useQueryClient();
+	const { isSuccess, mutate, data } = useMutation({
+		mutationFn: (data: DeleteSavedRecipeData) => deleteSavedRecipes(data),
+		onSuccess: () => {
+			queryClient.invalidateQueries([queryKeys.savedRecipes]);
+			successAlert(`Recipe deleted successfully!`);
+		},
+		onError: (error) => {
+			console.error(error);
+			errorAlert(error);
+		},
+	});
+
+	return { isSuccess, mutate, data };
 };

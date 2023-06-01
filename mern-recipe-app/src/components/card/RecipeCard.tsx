@@ -13,6 +13,7 @@ type RecipeCardProps = {
 	savedRecipeIDs: string[];
 	isSaved?(recipeID: string): boolean;
 	handleSaveRecipe?(id: string): void;
+	handleDelete?(id: string): void;
 };
 
 const RecipeCard = ({
@@ -24,6 +25,7 @@ const RecipeCard = ({
 	ingredients,
 	isSaved,
 	handleSaveRecipe,
+	handleDelete,
 }: RecipeCardProps) => {
 	let location = useLocation();
 	const loading = useIsMutating();
@@ -40,8 +42,13 @@ const RecipeCard = ({
 				{isRecipeSaved ? `saved` : `save`}
 			</button>
 		);
-	} else {
-		output = null;
+	}
+	if (location.pathname === "/saved-recipes" && handleDelete) {
+		output = (
+			<button onClick={() => handleDelete(_id)} disabled={loading == 1}>
+				delete
+			</button>
+		);
 	}
 
 	return (
