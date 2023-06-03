@@ -3,11 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Home from "./views/Home";
-import Auth from "./views/Auth";
-import CreateRecipe from "./views/CreateRecipe";
-import SavedRecipes from "./views/SavedRecipes";
-import Error from "./views/Error";
 import Navbar from "./components/navigation/Navbar";
 import {
 	Token,
@@ -16,6 +11,7 @@ import {
 	removeUserID,
 	setLoginToken as updateLoginToken,
 } from "./storage";
+import AnimatedRoutes from "./components/routes/AnimatedRoutes";
 
 function App() {
 	// STUB: set token as loginToken state if token exists in local storage, else set to false
@@ -41,16 +37,7 @@ function App() {
 	return (
 		<>
 			<Navbar handleTokenUpdate={handleTokenUpdate} token={loginToken} />
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route
-					path="auth"
-					element={<Auth handleTokenUpdate={handleTokenUpdate} />}
-				/>
-				<Route path="create-recipe" element={<CreateRecipe />} />
-				<Route path="saved-recipes" element={<SavedRecipes />} />
-				<Route path="*" element={<Error />} />
-			</Routes>
+			<AnimatedRoutes handleTokenUpdate={handleTokenUpdate} />
 			<ToastContainer />
 		</>
 	);

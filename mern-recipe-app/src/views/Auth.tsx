@@ -1,13 +1,11 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
 import { IFormData, TokenSchema } from "../components/auth/interface";
 
 const Auth = ({ handleTokenUpdate }: TokenSchema) => {
-	// NOTE: view is state that tracks which component is on the screen
-	// toggleView will change the view
-
 	const [view, setView] = useState("login");
 	const defaultFormData: IFormData = {
 		email: "",
@@ -19,7 +17,11 @@ const Auth = ({ handleTokenUpdate }: TokenSchema) => {
 	};
 
 	return (
-		<>
+		<motion.div
+			initial={{ x: 300, opacity: 0 }}
+			animate={{ x: 0, opacity: 1 }}
+			exit={{ x: -300, opacity: 0 }}
+		>
 			{view === "login" && (
 				<Login
 					defaultFormData={defaultFormData}
@@ -33,7 +35,7 @@ const Auth = ({ handleTokenUpdate }: TokenSchema) => {
 					toggleView={toggleView}
 				/>
 			)}
-		</>
+		</motion.div>
 	);
 };
 

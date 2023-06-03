@@ -1,11 +1,10 @@
 import React, { FormEvent, useState } from "react";
+import { motion } from "framer-motion";
 
 import { ReactComponent as MinusIcon } from "../assets/minus-icon.svg";
 import { useCreateRecipe } from "../hooks/recipe";
 import { getStoredUser } from "../storage";
-
-// TODO: stopped here
-// finish setting up form
+import Button from "../components/button/Button";
 
 const CreateRecipe = () => {
 	const [formData, setFormData] = useState({
@@ -61,7 +60,12 @@ const CreateRecipe = () => {
 	};
 
 	return (
-		<main className="create-recipe">
+		<motion.main
+			className="create-recipe"
+			initial={{ x: 300, opacity: 0 }}
+			animate={{ x: 0, opacity: 1 }}
+			exit={{ x: -300, opacity: 0 }}
+		>
 			<h2>create recipe</h2>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="name">
@@ -77,9 +81,10 @@ const CreateRecipe = () => {
 				<div className="ingredients-wrapper">
 					<div>
 						<label htmlFor="ingredients">ingredients</label>
-						<button type="button" onClick={addIngredient}>
-							add ingredient
-						</button>
+						<Button
+							title="add ingredient"
+							handleClick={addIngredient}
+						/>
 					</div>
 					{formData.ingredients.map((ingredient, index) => (
 						<div key={index} className="ingredient">
@@ -129,9 +134,9 @@ const CreateRecipe = () => {
 						required
 					/>
 				</label>
-				<button>submit</button>
+				<Button title="submit" type="submit" />
 			</form>
-		</main>
+		</motion.main>
 	);
 };
 

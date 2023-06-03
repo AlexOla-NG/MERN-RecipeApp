@@ -1,10 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
+import PasswordInput from "./PasswordInput";
 import Button from "../button/Button";
 import { IAuth } from "./interface";
 import { useLogin } from "../../hooks/auth";
 import { setStoredUser } from "../../storage";
-
-// TODO: setup password input component, add a visibility toggle
 
 const Login = ({ defaultFormData, toggleView, handleTokenUpdate }: IAuth) => {
 	const { data, isLoading, isSuccess, mutate } = useLogin();
@@ -42,15 +41,13 @@ const Login = ({ defaultFormData, toggleView, handleTokenUpdate }: IAuth) => {
 						value={formData?.email}
 						onChange={handleChange}
 					/>
-					<input
-						type="password"
+					<PasswordInput
 						name="password"
 						placeholder="Password"
 						value={formData?.password}
-						onChange={handleChange}
+						handleChange={handleChange}
 					/>
-
-					<Button disabled={isLoading} />
+					<Button disabled={isLoading} type="submit" />
 				</form>
 				<p>
 					Don't have an account?{" "}

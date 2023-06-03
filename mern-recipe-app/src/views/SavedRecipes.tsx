@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
 import { useDeleteSavedRecipe, useGetSavedRecipes } from "../hooks/recipe";
 import { getStoredUser } from "../storage";
 import RecipeCard from "../components/card/RecipeCard";
@@ -29,7 +31,12 @@ const SavedRecipes = () => {
 	};
 
 	return (
-		<main className="home">
+		<motion.main
+			className="home"
+			initial={{ x: 300, opacity: 0 }}
+			animate={{ x: 0, opacity: 1 }}
+			exit={{ x: -300, opacity: 0 }}
+		>
 			{recipes?.map((recipe: any) => (
 				<RecipeCard
 					key={recipe._id}
@@ -37,7 +44,7 @@ const SavedRecipes = () => {
 					handleDelete={handleDelete}
 				/>
 			))}
-		</main>
+		</motion.main>
 	);
 };
 

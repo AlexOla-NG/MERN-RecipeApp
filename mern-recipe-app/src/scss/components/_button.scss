@@ -39,7 +39,7 @@
 }
 
 .btn:active::before {
-	transform: scale(20);
+	transform: scale(25);
 	opacity: 1;
 
 	transition: transform 1000ms, opacity 500ms;

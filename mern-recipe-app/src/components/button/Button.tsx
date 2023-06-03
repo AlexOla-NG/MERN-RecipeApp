@@ -4,7 +4,7 @@ const buttonSchema = z.object({
 	title: z.string(),
 	type: z.enum(["submit", "button"]),
 	disabled: z.boolean().optional(),
-	handleClick: z.function().args(),
+	handleClick: z.function().args().optional(),
 });
 type IButton = z.infer<typeof buttonSchema>;
 

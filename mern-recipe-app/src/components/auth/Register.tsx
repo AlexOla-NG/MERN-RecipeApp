@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from "react";
 
 import { IAuth } from "./interface";
+import PasswordInput from "./PasswordInput";
 import Button from "../button/Button";
 import { useRegister } from "../../hooks/auth";
 
@@ -34,12 +35,11 @@ const Register = ({ defaultFormData, toggleView }: IAuth) => {
 						value={formData?.email}
 						onChange={handleChange}
 					/>
-					<input
-						type="password"
+					<PasswordInput
 						name="password"
 						placeholder="Password"
 						value={formData?.password}
-						onChange={handleChange}
+						handleChange={handleChange}
 					/>
 
 					<Button disabled={isLoading} title="register" />

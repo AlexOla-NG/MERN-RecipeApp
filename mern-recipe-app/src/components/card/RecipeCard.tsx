@@ -45,9 +45,11 @@ const RecipeCard = ({
 	}
 	if (location.pathname === "/saved-recipes" && handleDelete) {
 		output = (
-			<button onClick={() => handleDelete(_id)} disabled={loading == 1}>
-				delete
-			</button>
+			<Button
+				handleClick={() => handleDelete(_id)}
+				disabled={loading == 1}
+				title="delete"
+			/>
 		);
 	}
 

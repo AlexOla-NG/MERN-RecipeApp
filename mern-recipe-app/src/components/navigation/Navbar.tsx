@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { TokenSchema } from "../auth/interface";
 import { successAlert } from "../../utils";
+import Button from "../button/Button";
 
 const Navbar = ({ handleTokenUpdate, token }: TokenSchema) => {
 	const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Navbar = ({ handleTokenUpdate, token }: TokenSchema) => {
 				<NavLink to="/">recipes</NavLink>
 				<NavLink to="create-recipe">create recipe</NavLink>
 				<NavLink to="saved-recipes">saved recipes</NavLink>
-				<button onClick={handleLogout}>logout</button>
+				<Button handleClick={handleLogout} title="logout" />
 			</>
 		);
 	} else {
