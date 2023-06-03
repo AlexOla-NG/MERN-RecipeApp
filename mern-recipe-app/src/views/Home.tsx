@@ -19,17 +19,19 @@ const Home = () => {
 	} = useGetRecipeIDs();
 	const userID = getStoredUser();
 
-	// STUB: load recipes from API
+	// STUB: set recipes state on successful API call
 	useEffect(() => {
 		if (isSuccess) setRecipes(data);
 	}, [isSuccess]);
 
 	// STUB: if user is logged in, get saved recipes ID
 	useEffect(() => {
-		getSavedRecipeIDs();
+		if (userID) {
+			mutate(userID);
+		}
 	}, []);
 
-	// STUB: load saved recipes from API on component mount
+	// STUB: set savedRecipes state on successful useGetRecipeIDs API call
 	useEffect(() => {
 		if (isSavedRecipeIDSuccess && recipeIDs) {
 			setSavedRecipes(recipeIDs?.savedRecipes);
@@ -42,11 +44,6 @@ const Home = () => {
 			setSavedRecipes(savedRecipeIDs?.savedRecipes);
 		}
 	}, [isSavedRecipeSuccess, savedRecipeIDs]);
-
-	// STUB: get saved recipes IDs from API
-	const getSavedRecipeIDs = () => {
-		if (userID) mutate(userID);
-	};
 
 	// STUB: save recipe to API
 	// @param			id: string

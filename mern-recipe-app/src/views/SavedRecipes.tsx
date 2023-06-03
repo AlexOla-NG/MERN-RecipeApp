@@ -4,9 +4,6 @@ import { getStoredUser } from "../storage";
 import RecipeCard from "../components/card/RecipeCard";
 import { useIsMutating } from "@tanstack/react-query";
 
-// TODO: stopped here
-// recipes state data does not update when a recipe has been added in Home
-
 const SavedRecipes = () => {
 	const [recipes, setRecipes] = useState([]);
 	const loading = useIsMutating();
@@ -20,7 +17,7 @@ const SavedRecipes = () => {
 
 	useEffect(() => {
 		if (isSuccess || !loading) setRecipes(savedRecipes?.savedRecipes);
-	}, [isSuccess, isStale]);
+	}, [isSuccess, isStale, savedRecipes]);
 
 	// STUB: delete recipe
 	const handleDelete = (id: string) => {

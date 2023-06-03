@@ -64,8 +64,7 @@ p {
 }
 
 input,
-textarea,
-button {
+textarea {
 	border: 1px solid $dark-grey;
 	border-radius: 0.3rem;
 	color: inherit;
@@ -76,9 +75,22 @@ button {
 }
 
 button {
-	background: unset;
+	font: inherit;
+	padding: 0.75em 3em;
+	background: hsl(185, 53%, 15%);
+	border: 0.1em solid hsl(185, 53%, 34%);
+	border-radius: 100vw;
 	cursor: pointer;
-	transition: all 400ms ease-in-out;
+	transition: background-color 250ms;
+
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+}
+
+button:hover,
+button:focus-visible {
+	background: hsl(185, 53%, 34%);
 }
 
 ul {

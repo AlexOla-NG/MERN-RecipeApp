@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useIsMutating } from "@tanstack/react-query";
 import { convertSecondToMinutes } from "../../utils";
 import { getStoredUser } from "../../storage";
+import Button from "../button/Button";
 
 type RecipeCardProps = {
 	_id: string;
@@ -35,12 +36,11 @@ const RecipeCard = ({
 	if (location.pathname === "/" && userID && isSaved && handleSaveRecipe) {
 		const isRecipeSaved = isSaved(_id);
 		output = (
-			<button
-				onClick={() => handleSaveRecipe(_id)}
+			<Button
+				handleClick={() => handleSaveRecipe(_id)}
 				disabled={loading == 1 || isRecipeSaved}
-			>
-				{isRecipeSaved ? `saved` : `save`}
-			</button>
+				title={isRecipeSaved ? `saved` : `save`}
+			/>
 		);
 	}
 	if (location.pathname === "/saved-recipes" && handleDelete) {
