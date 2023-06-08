@@ -66,7 +66,7 @@ export const useCreateRecipe = () => {
 	const { isSuccess, mutate, isLoading } = useMutation({
 		mutationFn: (formData: unknown) => createRecipe(formData),
 		onSuccess: () => {
-			queryClient.invalidateQueries([queryKeys.recipe]);
+			queryClient.invalidateQueries([queryKeys.recipes]);
 			successAlert(`Recipe created successfully!`);
 			setTimeout(() => {
 				navigate("/");
@@ -101,6 +101,7 @@ export const useGetRecipes = () => {
 		data = fallback,
 		isLoading,
 		isSuccess,
+		isStale,
 	} = useQuery({
 		queryKey: [queryKeys.recipes],
 		queryFn: () => getRecipes(),
@@ -112,8 +113,9 @@ export const useGetRecipes = () => {
 
 			errorAlert(error);
 		},
+		refetchOnMount: "always",
 	});
-	return { data, isSuccess, isLoading };
+	return { data, isSuccess, isLoading, isStale };
 };
 
 export const useGetRecipeIDs = () => {

@@ -51,7 +51,7 @@ export const useLogin = () => {
 			successAlert(`Login successful!`);
 			setTimeout(() => {
 				navigate("/");
-			}, 3000);
+			}, 2000);
 		},
 		onError: (error) => {
 			errorAlert(error);

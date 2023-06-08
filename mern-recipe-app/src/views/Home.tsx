@@ -8,7 +8,7 @@ import { getStoredUser } from "../storage";
 const Home = () => {
 	const [recipes, setRecipes] = useState([]);
 	const [savedRecipes, setSavedRecipes] = useState<unknown[]>([]);
-	const { data, isSuccess } = useGetRecipes();
+	const { data, isSuccess, isStale } = useGetRecipes();
 	const {
 		mutate: saveRecipe,
 		data: savedRecipeIDs,
@@ -25,6 +25,11 @@ const Home = () => {
 	useEffect(() => {
 		if (isSuccess) setRecipes(data);
 	}, [isSuccess]);
+
+	// STUB: refetch recipes if data is stale
+	useEffect(() => {
+		if (isSuccess && !isStale) setRecipes(data);
+	}, [isStale, data, isSuccess]);
 
 	// STUB: if user is logged in, get saved recipes ID
 	useEffect(() => {
